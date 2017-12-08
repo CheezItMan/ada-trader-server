@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+apple:
+  name: Apple
+  symbol: AAPL
+  price: 199.99
+
+microsoft:
+  name: Microsoft
+  symbol: MSFT
+  price: 29.58
