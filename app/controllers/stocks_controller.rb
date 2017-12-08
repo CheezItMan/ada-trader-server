@@ -8,7 +8,7 @@ class StocksController < ApplicationController
     stock = Stock.find_by(id: params[:id])
 
     if stock
-      render json: stock.as_json
+      render json: stock
     else
       render(
         json: {
@@ -24,9 +24,14 @@ class StocksController < ApplicationController
 
   def update
     stock = Stock.find_by(id: params[:id])
-    if stock.update stock_params
+    if stock.nil?
       render(
-        json: stock.as_json(only: [:id]), status: :ok
+        json: {"ok" => false,
+               "errors" => ["does not exist"]
+              }, status: :bad_request)
+    elsif stock.update(stock_params)
+      render(
+        json: stock, status: :ok
       )
     else
       render(
@@ -40,7 +45,7 @@ class StocksController < ApplicationController
     stock = Stock.find_by(id: params[:id])
     if stock
       stock.destroy
-      render( stock.as_json, status: :ok)
+      render( json: (stock), status: :ok)
     else
       render(
         json: {
@@ -59,7 +64,7 @@ class StocksController < ApplicationController
 
     if stock.save
       render(
-        json: stock.as_json(only: [:id]), status: :ok
+        json: stock, status: :ok
       )
     else
       render(
